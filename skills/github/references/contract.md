@@ -1,7 +1,14 @@
-# Contract
+# GitHub Router Contract
 
+Agent: `@github-agent`
 Plugin: `github`
-Skill: `github`
-Capability prefix: `/github:github`
+Skill/Subagent: `github`
 
-Status vocabulary: PASS, FAIL, LOOP, HALT, BLOCKED, NOT_INVOKED.
+Routes concrete functions to:
+- `repository-discovery`
+- `change-management`
+- `actions`
+- `local-actions`
+- `sync`
+
+Provider resolution is defined in `provider-resolution.md`.
