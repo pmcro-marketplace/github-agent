@@ -1,7 +1,16 @@
-# Contract
+# Change Management Contract
 
-Plugin: `github`
-Skill: `change-management`
-Capability prefix: `/github:change-management`
+Functions:
+- `create-repository`
+- `create-branch`
+- `create-file`
+- `update-file`
+- `create-issue`
+- `create-pull-request`
+- `review-pull-request`
+- `merge-pull-request`
+- `create-release`
 
-Status vocabulary: PASS, FAIL, LOOP, HALT, BLOCKED, NOT_INVOKED.
+All resolve under `/github:change-management:<function>`.
+
+Remote GitHub evidence is required for PASS.
