@@ -1,7 +1,6 @@
-# Contract
+# GitHub Sync Contract
 
-Plugin: `github`
-Skill: `sync`
-Capability prefix: `/github:sync`
+Function:
+- `sync` -> `/github:sync:sync`
 
-Status vocabulary: PASS, FAIL, LOOP, HALT, BLOCKED, NOT_INVOKED.
+PASS requires verified remote commit evidence.

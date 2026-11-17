@@ -1,7 +1,8 @@
-# Contract
+# GitHub Actions Contract
 
-Plugin: `github`
-Skill: `actions`
-Capability prefix: `/github:actions`
+Functions:
+- `inspect` -> `/github:actions:inspect`
+- `dispatch` -> `/github:actions:dispatch`
+- `verify-run` -> `/github:actions:verify-run`
 
-Status vocabulary: PASS, FAIL, LOOP, HALT, BLOCKED, NOT_INVOKED.
+Workflow configuration is not run evidence.

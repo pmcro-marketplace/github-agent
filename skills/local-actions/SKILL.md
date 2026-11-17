@@ -1,36 +1,37 @@
 ---
 name: local-actions
-description: Prepare bounded local GitHub Actions rehearsal using nektos act and Docker.
+description: Rehearse GitHub Actions locally with nektos act and Docker without confusing rehearsal with remote GitHub execution.
 ---
 # local-actions
 
 ## Purpose
-Keep local rehearsal distinct from remote Actions execution and never inject unapproved secrets.
+Provide bounded local workflow rehearsal before remote execution.
 
 ## When to Use
-Use this capability when it is the narrowest resolved skill for the current request.
+Use for `/rehearse-actions` when an authorized local host has Docker and `act`.
 
 ## When Not to Use
-Do not duplicate an existing validated capability, broaden scope silently, or claim execution without evidence.
+Do not claim a local rehearsal is a GitHub-hosted Actions run. Do not inject secrets without explicit authorization.
 
 ## Inputs
-A bounded request, resolved target identity, authorization context, and applicable evidence.
+Local repository/workflow target, event, permitted inputs/secrets, and expected outcome.
 
 ## Deliverables
-One concrete result or a BLOCKED/NOT_INVOKED disposition with evidence.
+Local rehearsal evidence or `BLOCKED` / `NOT_INVOKED`.
 
 ## Workflow
-1. Resolve Agent -> Plugin -> Skill -> Function.
-2. Emit the exact functionality before execution.
-3. Invoke the actual available provider or capability.
-4. The installed Hook Agent may autonomously apply applicable lifecycle functions above this target; this skill does not own lifecycle behavior.
-5. Verify the result with evidence.
+1. Verify Docker and `act`.
+2. Resolve the workflow/event.
+3. Run bounded rehearsal.
+4. Capture local output/exit status.
+5. Label evidence as local rehearsal.
 
 ## Validation
-A PASS requires actual evidence. A declared path or emitted invocation is not proof of execution.
+Supported function:
+- `/github:local-actions:rehearse`
 
 ## Pitfalls
-Emission is not invocation. Discovery is not authorization. Skills-only packaging does not itself create a runtime tool.
+Local environment parity with GitHub-hosted runners is not guaranteed.
 
 ## Resources
-See references/contract.md and assets/request.json.
+See `references/contract.md` and `assets/request.json`.

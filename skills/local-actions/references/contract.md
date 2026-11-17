@@ -1,7 +1,6 @@
-# Contract
+# Local Actions Contract
 
-Plugin: `github`
-Skill: `local-actions`
-Capability prefix: `/github:local-actions`
+Function:
+- `rehearse` -> `/github:local-actions:rehearse`
 
-Status vocabulary: PASS, FAIL, LOOP, HALT, BLOCKED, NOT_INVOKED.
+Evidence must be labeled local rehearsal and must not be represented as a GitHub-hosted run.

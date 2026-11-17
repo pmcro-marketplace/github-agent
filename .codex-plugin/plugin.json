@@ -1,23 +1,26 @@
 {
   "interface": {
     "displayName": "GitHub Agent",
-    "shortDescription": "Govern GitHub workflows",
-    "longDescription": "Governed GitHub repository discovery, change management, Actions, synchronization, and local Actions rehearsal.",
+    "shortDescription": "Govern GitHub operations",
+    "longDescription": "Govern GitHub repository discovery and creation, branches, files, issues, pull requests, releases, GitHub Actions, synchronization, and local Actions rehearsal with evidence-backed provider selection.",
     "developerName": "Planner Agent",
     "category": "Developer Tools",
     "capabilities": [],
-    "defaultPrompt": "For every actionable request, resolve the real Agent -> Plugin -> Skill -> Function. When the installed Hook Agent is available, allow it to autonomously emit and attempt only the applicable lifecycle functions above the target execution. Then invoke the real target capability and verify evidence. Hook emission is not execution; unavailable lifecycle providers return NOT_INVOKED."
+    "defaultPrompt": "Resolve every actionable request as Agent -> Plugin -> Skill/Subagent -> Function. GitHub Agent owns GitHub repository, change, Actions, and synchronization operations. Prefer the connected GitHub provider when it exposes the requested function; if it does not, an authenticated GitHub CLI (`gh`) on an authorized machine may implement the same GitHub function. Never treat emission, configuration, or routing as execution evidence."
   },
   "name": "github",
-  "version": "0.2.2",
-  "description": "Governed GitHub repository discovery, change management, Actions, synchronization, and local Actions rehearsal.",
+  "version": "0.3.0",
+  "description": "Govern GitHub repository discovery and creation, branches, files, issues, pull requests, releases, GitHub Actions, synchronization, and local Actions rehearsal with evidence-backed provider selection.",
   "author": {
     "name": "Planner Agent"
   },
   "keywords": [
     "pmcro",
-    "agent",
-    "governance"
+    "github",
+    "repository",
+    "actions",
+    "git",
+    "agent"
   ],
   "skills": "./skills"
 }

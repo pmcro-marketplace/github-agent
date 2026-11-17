@@ -1,7 +1,8 @@
-# Contract
+# Repository Discovery Contract
 
-Plugin: `github`
-Skill: `repository-discovery`
-Capability prefix: `/github:repository-discovery`
+Functions:
+- `inspect` -> `/github:repository-discovery:inspect`
+- `list-repositories` -> `/github:repository-discovery:list-repositories`
+- `get-repository` -> `/github:repository-discovery:get-repository`
 
-Status vocabulary: PASS, FAIL, LOOP, HALT, BLOCKED, NOT_INVOKED.
+Read-only. Remote GitHub evidence required.

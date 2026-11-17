@@ -1,6 +1,8 @@
 {
   "kind": "CapabilityRequest",
+  "agent": "github-agent",
   "plugin": "github",
   "skill": "github",
+  "function": "route",
   "status": "proposed"
 }
