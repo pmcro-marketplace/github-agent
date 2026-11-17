@@ -1,36 +1,38 @@
 ---
 name: repository-discovery
-description: Inspect authoritative GitHub state before mutation.
+description: Read authoritative GitHub repository state before mutation.
 ---
 # repository-discovery
 
 ## Purpose
-Resolve repositories, branches, files, commits, releases, issues, pull requests, and workflow definitions.
+Inspect repositories, branches, files, commits, releases, issues, pull requests, and workflow definitions without mutating them.
 
 ## When to Use
-Use this capability when it is the narrowest resolved skill for the current request.
+Use for `/inspect`, `/list-repositories`, or `/get-repository`, and before governed mutations when current state matters.
 
 ## When Not to Use
-Do not duplicate an existing validated capability, broaden scope silently, or claim execution without evidence.
+Do not create repositories or mutate repository state.
 
 ## Inputs
-A bounded request, resolved target identity, authorization context, and applicable evidence.
+Repository owner/name or other exact GitHub target plus optional ref/path/query.
 
 ## Deliverables
-One concrete result or a BLOCKED/NOT_INVOKED disposition with evidence.
+Authoritative GitHub observations with URLs/IDs/SHAs when available.
 
 ## Workflow
-1. Resolve Agent -> Plugin -> Skill -> Function.
-2. Emit the exact functionality before execution.
-3. Invoke the actual available provider or capability.
-4. The installed Hook Agent may autonomously apply applicable lifecycle functions above this target; this skill does not own lifecycle behavior.
-5. Verify the result with evidence.
+1. Resolve the exact GitHub target.
+2. Invoke the connected GitHub read provider.
+3. Preserve source refs and identifiers.
+4. Return evidence for downstream mutation/checking.
 
 ## Validation
-A PASS requires actual evidence. A declared path or emitted invocation is not proof of execution.
+Supported functions:
+- `/github:repository-discovery:inspect`
+- `/github:repository-discovery:list-repositories`
+- `/github:repository-discovery:get-repository`
 
 ## Pitfalls
-Emission is not invocation. Discovery is not authorization. Skills-only packaging does not itself create a runtime tool.
+A 404 can mean missing or inaccessible; organization-level evidence may be needed to disambiguate.
 
 ## Resources
-See references/contract.md and assets/request.json.
+See `references/contract.md` and `assets/request.json`.
