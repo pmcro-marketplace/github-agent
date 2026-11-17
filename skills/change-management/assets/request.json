@@ -1,0 +1,6 @@
+{
+  "kind": "CapabilityRequest",
+  "plugin": "github",
+  "skill": "change-management",
+  "status": "proposed"
+}
