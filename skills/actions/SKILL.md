@@ -1,36 +1,38 @@
 ---
 name: actions
-description: Inspect, diagnose, dispatch, and verify GitHub Actions workflows through the connected provider.
+description: Inspect, dispatch, diagnose, and verify remote GitHub Actions workflows.
 ---
 # actions
 
 ## Purpose
-Do not confuse workflow configuration with run evidence.
+Operate remote GitHub Actions while distinguishing workflow configuration from actual run evidence.
 
 ## When to Use
-Use this capability when it is the narrowest resolved skill for the current request.
+Use for `/inspect-actions`, `/dispatch`, or `/verify-run`.
 
 ## When Not to Use
-Do not duplicate an existing validated capability, broaden scope silently, or claim execution without evidence.
+Do not treat a workflow YAML file as proof a workflow ran. Do not use this subagent for local `act` rehearsal.
 
 ## Inputs
-A bounded request, resolved target identity, authorization context, and applicable evidence.
+Exact repository, workflow/run selector, ref and inputs when dispatching, authorization, and acceptance criteria.
 
 ## Deliverables
-One concrete result or a BLOCKED/NOT_INVOKED disposition with evidence.
+Workflow/run evidence or `BLOCKED` / `NOT_INVOKED`.
 
 ## Workflow
-1. Resolve Agent -> Plugin -> Skill -> Function.
-2. Emit the exact functionality before execution.
-3. Invoke the actual available provider or capability.
-4. The installed Hook Agent may autonomously apply applicable lifecycle functions above this target; this skill does not own lifecycle behavior.
-5. Verify the result with evidence.
+1. Resolve repository and workflow/run.
+2. Invoke the connected GitHub Actions provider.
+3. For dispatch, capture the provider result and then query run state.
+4. Verify run conclusion from GitHub evidence.
 
 ## Validation
-A PASS requires actual evidence. A declared path or emitted invocation is not proof of execution.
+Supported functions:
+- `/github:actions:inspect`
+- `/github:actions:dispatch`
+- `/github:actions:verify-run`
 
 ## Pitfalls
-Emission is not invocation. Discovery is not authorization. Skills-only packaging does not itself create a runtime tool.
+Configured is not dispatched. Dispatched is not successful.
 
 ## Resources
-See references/contract.md and assets/request.json.
+See `references/contract.md` and `assets/request.json`.
