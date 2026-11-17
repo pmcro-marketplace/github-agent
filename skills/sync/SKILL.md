@@ -1,36 +1,38 @@
 ---
 name: sync
-description: Synchronize authorized PMCR-O source to an existing GitHub repository.
+description: Synchronize authorized source to an existing GitHub repository and verify the remote commit.
 ---
 # sync
 
 ## Purpose
-Preserve authored-source and generated-output boundaries and verify the remote commit.
+Push authorized source while preserving authored-source/generated-output boundaries and proving the remote result.
 
 ## When to Use
-Use this capability when it is the narrowest resolved skill for the current request.
+Use for `/sync` when an existing GitHub repository should receive authorized source.
 
 ## When Not to Use
-Do not duplicate an existing validated capability, broaden scope silently, or claim execution without evidence.
+Do not silently overwrite unrelated remote work or treat a local commit as proof of remote synchronization.
 
 ## Inputs
-A bounded request, resolved target identity, authorization context, and applicable evidence.
+Source location/content, target repository/ref, allowed paths, expected remote state, and authorization.
 
 ## Deliverables
-One concrete result or a BLOCKED/NOT_INVOKED disposition with evidence.
+Verified remote synchronization or `BLOCKED` / `NOT_INVOKED`.
 
 ## Workflow
-1. Resolve Agent -> Plugin -> Skill -> Function.
-2. Emit the exact functionality before execution.
-3. Invoke the actual available provider or capability.
-4. The installed Hook Agent may autonomously apply applicable lifecycle functions above this target; this skill does not own lifecycle behavior.
-5. Verify the result with evidence.
+1. Inspect target repository/ref.
+2. Determine the authorized source and changed paths.
+3. Apply the narrowest GitHub write mechanism.
+4. Verify the remote commit SHA and changed files.
 
 ## Validation
-A PASS requires actual evidence. A declared path or emitted invocation is not proof of execution.
+Supported function:
+- `/github:sync:sync`
+
+A PASS requires remote GitHub evidence.
 
 ## Pitfalls
-Emission is not invocation. Discovery is not authorization. Skills-only packaging does not itself create a runtime tool.
+Generated outputs are not authoritative when a separately authored source of truth exists.
 
 ## Resources
-See references/contract.md and assets/request.json.
+See `references/contract.md` and `assets/request.json`.
