@@ -1,6 +1,6 @@
 ---
 name: repository-discovery
-description: Read authoritative GitHub repository state before mutation.
+description: Read authoritative GitHub repository state before mutation. USE FOR read-only repository, branch, file, commit, release, issue, pull request, or workflow discovery. DO NOT USE FOR mutation, Actions dispatch, local rehearsal, or synchronization; use change-management, actions, local-actions, or sync.
 ---
 # repository-discovery
 
@@ -35,4 +35,5 @@ Supported functions:
 A 404 can mean missing or inaccessible; organization-level evidence may be needed to disambiguate.
 
 ## Resources
-See `references/contract.md` and `assets/request.json`.
+See `references/contract.md` and `assets/request.json`, and `scripts/validate.py`.
+
