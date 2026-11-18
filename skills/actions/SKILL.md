@@ -1,6 +1,6 @@
 ---
 name: actions
-description: Inspect, dispatch, diagnose, and verify remote GitHub Actions workflows.
+description: Inspect, dispatch, diagnose, and verify remote GitHub Actions workflows. USE FOR remote GitHub Actions inspection, dispatch, and run verification. DO NOT USE FOR local act rehearsal or repository/file mutations; use local-actions or change-management.
 ---
 # actions
 
@@ -35,4 +35,5 @@ Supported functions:
 Configured is not dispatched. Dispatched is not successful.
 
 ## Resources
-See `references/contract.md` and `assets/request.json`.
+See `references/contract.md` and `assets/request.json`, and `scripts/validate.py`.
+

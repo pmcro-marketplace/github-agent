@@ -1,6 +1,6 @@
 ---
 name: github
-description: GitHub domain router that resolves concrete GitHub functions to the narrowest GitHub subagent and real provider.
+description: GitHub domain router that resolves concrete GitHub functions to the narrowest GitHub subagent and real provider. USE FOR routing an unresolved GitHub request to the narrowest GitHub capability. DO NOT USE FOR performing the resolved mutation, Actions operation, local rehearsal, discovery, or synchronization; use the selected sibling skill.
 ---
 # github
 
@@ -34,4 +34,5 @@ A PASS requires target-function evidence, not routing evidence.
 Emission is not invocation. Connector availability does not imply every GitHub API mutation is exposed.
 
 ## Resources
-See `references/contract.md`, `references/provider-resolution.md`, and `assets/request.json`.
+See `references/contract.md`, `references/provider-resolution.md`, and `assets/request.json`, and `scripts/validate.py`.
+

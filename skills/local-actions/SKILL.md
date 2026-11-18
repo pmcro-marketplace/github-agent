@@ -1,6 +1,6 @@
 ---
 name: local-actions
-description: Rehearse GitHub Actions locally with nektos act and Docker without confusing rehearsal with remote GitHub execution.
+description: Rehearse GitHub Actions locally with nektos act and Docker without confusing rehearsal with remote GitHub execution. USE FOR bounded local workflow rehearsal on an authorized host. DO NOT USE FOR remote GitHub Actions inspection/dispatch or repository mutations; use actions or change-management.
 ---
 # local-actions
 
@@ -34,4 +34,5 @@ Supported function:
 Local environment parity with GitHub-hosted runners is not guaranteed.
 
 ## Resources
-See `references/contract.md` and `assets/request.json`.
+See `references/contract.md` and `assets/request.json`, and `scripts/validate.py`.
+
