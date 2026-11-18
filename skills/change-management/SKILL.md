@@ -1,6 +1,6 @@
 ---
 name: change-management
-description: Perform governed GitHub repository and change mutations, including repository creation, branches, files, issues, pull requests, reviews, merges, and releases.
+description: Perform governed GitHub repository and change mutations, including repository creation, branches, files, issues, pull requests, reviews, merges, and releases. USE FOR one explicit remote GitHub mutation. DO NOT USE FOR read-only discovery, Actions operation, local rehearsal, or source synchronization; use repository-discovery, actions, local-actions, or sync.
 ---
 # change-management
 
@@ -49,4 +49,5 @@ Supported functions:
 GitHub authentication is not organization-admin authorization. Verify organization creation permission before claiming success.
 
 ## Resources
-See `references/contract.md`, `references/create-repository.md`, and `assets/request.json`.
+See `references/contract.md`, `references/create-repository.md`, and `assets/request.json`, and `scripts/validate.py`.
+
