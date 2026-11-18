@@ -1,6 +1,6 @@
 ---
 name: sync
-description: Synchronize authorized source to an existing GitHub repository and verify the remote commit.
+description: Synchronize authorized source to an existing GitHub repository and verify the remote commit. USE FOR pushing authorized source to an existing repository/ref and proving the resulting remote commit. DO NOT USE FOR repository creation, general mutations, discovery-only work, or Actions operation; use change-management, repository-discovery, or actions.
 ---
 # sync
 
@@ -35,4 +35,5 @@ A PASS requires remote GitHub evidence.
 Generated outputs are not authoritative when a separately authored source of truth exists.
 
 ## Resources
-See `references/contract.md` and `assets/request.json`.
+See `references/contract.md` and `assets/request.json`, and `scripts/validate.py`.
+
