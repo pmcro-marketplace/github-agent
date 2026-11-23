@@ -1,0 +1,30 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "github",
+  "version": "0.3.0",
+  "description": "Govern GitHub repository discovery and creation, branches, files, issues, pull requests, releases, GitHub Actions, synchronization, and local Actions rehearsal with evidence-backed provider selection.",
+  "author": {
+    "name": "Planner Agent"
+  },
+  "keywords": [
+    "pmcro",
+    "github",
+    "repository",
+    "actions",
+    "git",
+    "agent"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "GitHub Agent",
+        "shortDescription": "Govern GitHub operations",
+        "longDescription": "Govern GitHub repository discovery and creation, branches, files, issues, pull requests, releases, GitHub Actions, synchronization, and local Actions rehearsal with evidence-backed provider selection.",
+        "developerName": "Planner Agent",
+        "category": "Developer Tools",
+        "capabilities": [],
+        "defaultPrompt": "Resolve every actionable request as Agent -> Plugin -> Skill/Subagent -> Function. GitHub Agent owns GitHub repository, change, Actions, and synchronization operations. Prefer the connected GitHub provider when it exposes the requested function; if it does not, an authenticated GitHub CLI (`gh`) on an authorized machine may implement the same GitHub function. Never treat emission, configuration, or routing as execution evidence."
+      }
+    }
+  }
+}
