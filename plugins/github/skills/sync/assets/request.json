@@ -1,0 +1,8 @@
+{
+  "kind": "CapabilityRequest",
+  "agent": "github-agent",
+  "plugin": "github",
+  "skill": "sync",
+  "function": "sync",
+  "status": "proposed"
+}

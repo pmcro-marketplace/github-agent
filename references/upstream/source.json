@@ -1,0 +1,126 @@
+{
+  "repository": "pmcro-marketplace/github-agent",
+  "commit": "2d8ed6d1616095ad972f1e388553aad63dfb9619",
+  "files": [
+    {
+      "path": "plugin.json",
+      "blob": "95fe1282baf3bdf331256619b1b6a4dad892bf13"
+    },
+    {
+      "path": ".codex-plugin/plugin.json",
+      "blob": "f1173064572fc2be02896a971a8ad9b74f31fc39"
+    },
+    {
+      "path": "README.md",
+      "blob": "f8661471ee4ba165c2e1ba78f02889eb1e892b0f"
+    },
+    {
+      "path": "INVOCATION.md",
+      "blob": "acfdc615f3df0719949312f94dd14f246b3652d4"
+    },
+    {
+      "path": "skills/github/SKILL.md",
+      "blob": "2c3e33f3e629b3531fc9d639e26883e41cd2da6f"
+    },
+    {
+      "path": "skills/github/assets/request.json",
+      "blob": "e175f786d980c138e261896e1b094564701d8c69"
+    },
+    {
+      "path": "skills/github/references/contract.md",
+      "blob": "3380d7e67f382a2b49376729ff8789bb9e23b022"
+    },
+    {
+      "path": "skills/github/scripts/validate.py",
+      "blob": "a1b93e233fff5cd5098c665194d078bd3ca46f2c"
+    },
+    {
+      "path": "skills/repository-discovery/SKILL.md",
+      "blob": "9f0ff18e4bdc2046729833a82e21130b0d8e518d"
+    },
+    {
+      "path": "skills/repository-discovery/assets/request.json",
+      "blob": "2ed67b98f78738d8ac8d51d62a9cf9cb497ba7b0"
+    },
+    {
+      "path": "skills/repository-discovery/references/contract.md",
+      "blob": "7f6bca8187c9b2ff84c9a16abab2ac078a65af49"
+    },
+    {
+      "path": "skills/repository-discovery/scripts/validate.py",
+      "blob": "17e232be1ce55a8c3675eea884324272e5d3ab3e"
+    },
+    {
+      "path": "skills/change-management/SKILL.md",
+      "blob": "9a008e3dbc98294f9967d931fa328a3841a0f2f6"
+    },
+    {
+      "path": "skills/change-management/assets/request.json",
+      "blob": "273dd6075a7d4cd8a0f005c213d05e763ebf0e46"
+    },
+    {
+      "path": "skills/change-management/references/contract.md",
+      "blob": "cbfc17780ee6fa7c868345c55e19f7e65deb42bc"
+    },
+    {
+      "path": "skills/change-management/scripts/validate.py",
+      "blob": "2b8d9ab1a12cce04aeb3a08b0b7bf291b0da83c5"
+    },
+    {
+      "path": "skills/actions/SKILL.md",
+      "blob": "eb4e1192cd85caa95812b67f4ddab9d7cde9b307"
+    },
+    {
+      "path": "skills/actions/assets/request.json",
+      "blob": "5618b8f379251dcb30f2384795f5178802a5f16b"
+    },
+    {
+      "path": "skills/actions/references/contract.md",
+      "blob": "05118e3980785aa1c101711947376360871e9614"
+    },
+    {
+      "path": "skills/actions/scripts/validate.py",
+      "blob": "d9de6fed25ddb1d24a1715999b75436304dd7f69"
+    },
+    {
+      "path": "skills/local-actions/SKILL.md",
+      "blob": "6a2116cc7351af7f9ea29cfed608aa53baad59c3"
+    },
+    {
+      "path": "skills/local-actions/assets/request.json",
+      "blob": "337500b4c0602b495f5c5eb4db63aae88c32332f"
+    },
+    {
+      "path": "skills/local-actions/references/contract.md",
+      "blob": "06d28d4f60e79e02ece82a67050875b6303289f1"
+    },
+    {
+      "path": "skills/local-actions/scripts/validate.py",
+      "blob": "d7676b1ebc93f0795ab7987562eb440a47bc08a5"
+    },
+    {
+      "path": "skills/sync/SKILL.md",
+      "blob": "9b7e4b80c4e63d94d04fcf2c817459e54b6e2fc1"
+    },
+    {
+      "path": "skills/sync/assets/request.json",
+      "blob": "ad6204ee4eeca79df8fee710d0908ba0f943b346"
+    },
+    {
+      "path": "skills/sync/references/contract.md",
+      "blob": "84b499ad5c7fe76b49ab4c21cee76f034226b1d7"
+    },
+    {
+      "path": "skills/sync/scripts/validate.py",
+      "blob": "9e9eae4a07de63ffc43968a6fe72c85b9cc57d11"
+    },
+    {
+      "path": "skills/github/references/provider-resolution.md",
+      "blob": "2aaf88e25b67390d1a11b3c4686d84d1ea10110e"
+    },
+    {
+      "path": "skills/change-management/references/create-repository.md",
+      "blob": "47b6a500a9e751333f234c8289b416873b943538"
+    }
+  ]
+}

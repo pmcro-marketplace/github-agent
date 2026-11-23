@@ -1,0 +1,12 @@
+{
+  "agentId": "github-agent",
+  "repositoryScope": "pmcro-marketplace",
+  "phaseOrder": ["orchestrate", "plan", "make", "check", "reflect"],
+  "capabilities": {
+    "/github:repository-discovery:get-repository": {"method": "GET", "binding": "GITHUB_REST"},
+    "/github:actions:inspect": {"method": "GET", "binding": "GITHUB_REST"},
+    "/github:actions:verify-run": {"method": "GET", "binding": "GITHUB_REST"},
+    "/github:actions:dispatch": {"method": "POST", "binding": "GITHUB_REST_APPROVED_WRITE"},
+    "/github:change-management:create-repository": {"method": "POST", "binding": "GITHUB_REST_APPROVED_WRITE"}
+  }
+}

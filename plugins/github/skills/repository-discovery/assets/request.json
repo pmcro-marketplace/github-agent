@@ -1,0 +1,8 @@
+{
+  "kind": "CapabilityRequest",
+  "agent": "github-agent",
+  "plugin": "github",
+  "skill": "repository-discovery",
+  "function": "inspect",
+  "status": "proposed"
+}

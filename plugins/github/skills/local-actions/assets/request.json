@@ -1,0 +1,8 @@
+{
+  "kind": "CapabilityRequest",
+  "agent": "github-agent",
+  "plugin": "github",
+  "skill": "local-actions",
+  "function": "rehearse",
+  "status": "proposed"
+}
