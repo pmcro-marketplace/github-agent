@@ -42,7 +42,7 @@ Supported functions:
 
 `create-repository` implementation order:
 1. connected GitHub provider create-repository mutation, if exposed;
-2. authenticated `gh repo create`, if authorized and available;
+2. native approved GitHub REST POST or authenticated `gh repo create`, if authorized and available;
 3. otherwise `BLOCKED` / `NOT_INVOKED`.
 
 ## Pitfalls

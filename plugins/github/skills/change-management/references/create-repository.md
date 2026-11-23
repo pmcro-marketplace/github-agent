@@ -13,9 +13,9 @@ Required inputs:
 
 Procedure:
 1. Check exact repository existence.
-2. If it already exists, return the existing repository rather than duplicating it.
+2. If it already exists, stop the creation request; use the read capability to verify and reuse the existing repository.
 3. Prefer a connected GitHub provider create-repository function when available.
-4. Otherwise, on an authorized machine with authenticated `gh`, use `gh repo create`.
+4. Otherwise, invoke the native approved REST binding (or authenticated `gh repo create` on an authorized machine). The exact request requires an explicit visibility and separate host approval.
 5. Verify with GitHub `get repository`.
 6. Return repository URL, visibility, permissions, and provider evidence.
 

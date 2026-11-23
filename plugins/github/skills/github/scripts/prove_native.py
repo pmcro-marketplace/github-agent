@@ -22,6 +22,7 @@ base=f"http://127.0.0.1:{port}"
 token=secrets.token_hex(32)
 env={**os.environ,"PMCRO_MAF_TOKEN":token}
 env.pop("PMCRO_GITHUB_TOKEN",None) # explicit public-read proof, never use unknown credential
+env.pop("PMCRO_GITHUB_APPROVAL_DIR",None)
 def save(path,value):
     with (output/path).open("x") as fp: json.dump(value,fp,indent=2)
 def get(url):
@@ -70,7 +71,12 @@ with (output/"host.log").open("w") as log:
         runs=actions["returned"]["runs"]
         if runs:
             a2a("verify-run",{"capability":"/github:actions:verify-run","repository":repo,"runId":runs[0]["id"]},True)
-        a2a("rejected-mutation",{"capability":"/github:change-management:create-repository","repository":"pmcro-marketplace/not-created"},False)
+        a2a("rejected-mutation",{"capability":"/github:change-management:create-repository","repository":"pmcro-marketplace/not-created","visibility":"private"},False)
+        a2a("rejected-dispatch",{"capability":"/github:actions:dispatch","repository":repo,"workflowId":1,"ref":"main"},False)
+        for name in ("rejected-mutation","rejected-dispatch"):
+            rejected=json.loads((output/(name+".json")).read_text())["returned"]
+            assert rejected["remoteMutation"]=="NOT_INVOKED"
+            assert "Host GitHub credential required" in json.loads(rejected["frames"][1]["body"])["output"]["error"]
         inp={"threadId":str(uuid.uuid4()),"runId":str(uuid.uuid4()),"state":{},"messages":[{"id":str(uuid.uuid4()),"role":"user","content":json.dumps(data)}],"tools":[],"context":[],"forwardedProps":{}}
         try: stream("/agui",inp,False); raise AssertionError("Bearer missing but request succeeded")
         except HTTPError as exc: assert exc.code==401
@@ -80,6 +86,6 @@ with (output/"host.log").open("w") as log:
         audit(result,True)
         assert len(deltas)>=7 and any(e["type"]=="RUN_FINISHED" for e in ev)
         save("agui.json",{"request":inp,"events":ev})
-        save("summary.json",{"status":"PASS","repository":repo,"repositoryId":1462049834,"actualProvider":"GITHUB_REST_PUBLIC_READ","actionsRuns":actions["returned"]["totalCount"],"returnedRunCount":len(runs),"verifiedRun":runs[0]["id"] if runs else None,"phaseFrames":25 if runs else 20,"aguiDeltas":len(deltas),"mutation":"NOT_INVOKED","authenticationBoundary":401})
+        save("summary.json",{"status":"PASS","repository":repo,"repositoryId":1462049834,"actualProvider":"GITHUB_REST_PUBLIC_READ","actionsRuns":actions["returned"]["totalCount"],"returnedRunCount":len(runs),"verifiedRun":runs[0]["id"] if runs else None,"phaseFrames":30 if runs else 25,"aguiDeltas":len(deltas),"mutation":"NOT_INVOKED","authenticationBoundary":401})
     finally: host.terminate(); host.wait(timeout=15)
 print("GITHUB_NATIVE_PROOF_PASS")

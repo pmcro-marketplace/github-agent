@@ -46,9 +46,9 @@ app.MapA2AJsonRpc("github-agent", "/a2a/github");
 app.MapAGUIServer("/agui", governed);
 app.MapGet("/studio", () => Results.Content(File.ReadAllText(Path.Combine(skill,"assets/studio.html")), "text/html; charset=utf-8"));
 app.MapWellKnownAgentCard(new AgentCard {
-    Name = "github-agent", Description = inner.Description, Version = "0.4.0",
+    Name = "github-agent", Description = inner.Description, Version = "0.5.0",
     DefaultInputModes = ["text/plain"], DefaultOutputModes = ["text/plain"], Capabilities = new AgentCapabilities {Streaming = true},
-    Skills = registry.EnumerateObject().Where(p => p.Value.GetProperty("binding").GetString() == "GITHUB_REST").Select(p => new A2A.AgentSkill {Id = p.Name, Name = p.Name, Description = "Scoped read-only GitHub operation", Tags = ["github","pmcro"]}).ToList(),
+    Skills = registry.EnumerateObject().Where(p => p.Value.GetProperty("binding").GetString() is "GITHUB_REST" or "GITHUB_REST_APPROVED_WRITE").Select(p => new A2A.AgentSkill {Id = p.Name, Name = p.Name, Description = GithubWrite.IsWrite(p.Name) ? "Scoped GitHub write; requires host credential and one-shot exact approval" : "Scoped read-only GitHub operation", Tags = ["github","pmcro"]}).ToList(),
     SupportedInterfaces = [new AgentInterface {Url = url + "/a2a/github", ProtocolBinding = ProtocolBindingNames.JsonRpc, ProtocolVersion = "1.0"}]
 });
 try {await app.RunAsync();}
@@ -58,7 +58,7 @@ internal sealed class GithubAgent(string definitionHash, JsonElement registry, s
 {
     protected override string IdCore => "github-agent";
     public override string Name => "github-agent";
-    public override string Description => "Governed five-phase native GitHub repository and Actions inspection.";
+    public override string Description => "Governed five-phase native GitHub repository and Actions operations.";
     internal static string Hash(string text) => Convert.ToHexStringLower(SHA256.HashData(Encoding.UTF8.GetBytes(text)));
     private sealed class Session : AgentSession {}
     protected override ValueTask<AgentSession> CreateSessionCoreAsync(CancellationToken ct = default) => new(new Session());
@@ -75,6 +75,7 @@ internal sealed class GithubAgent(string definitionHash, JsonElement registry, s
         long run = 0, repoId = 0;
         bool planned = false, verified = false;
         JsonElement observed = default;
+        GithubWrite? write = null;
         var frames = new List<JsonElement>();
         using var client = new HttpClient(new HttpClientHandler {AllowAutoRedirect = false}) {Timeout=TimeSpan.FromSeconds(30)};
         client.DefaultRequestHeaders.UserAgent.ParseAdd("PMCR-O-GitHub-Agent/0.4");
@@ -101,12 +102,27 @@ internal sealed class GithubAgent(string definitionHash, JsonElement registry, s
                         }
                         output = new {capability, repository, requestSha256=Hash(text)}; break;
                     case "plan":
+                        if (GithubWrite.IsWrite(capability)) {
+                            if (!registry.TryGetProperty(capability, out var writeBinding) || writeBinding.GetProperty("binding").GetString() != "GITHUB_REST_APPROVED_WRITE")
+                                throw new InvalidOperationException("Write binding unavailable");
+                            write = new GithubWrite(client, repository, capability);
+                            using var request = JsonDocument.Parse(text);
+                            write.Parse(request.RootElement);
+                            GithubWrite.Claim(text, Environment.GetEnvironmentVariable("PMCRO_GITHUB_APPROVAL_DIR"), !string.IsNullOrEmpty(githubToken));
+                            await write.Preflight(cancel);
+                            planned = true;
+                            output = new {method="POST", endpoint=write.Endpoint, authenticated=true, approval="CLAIMED", visibility=write.Visibility, workflowId=write.WorkflowId, reference=write.Ref, expectedSha=write.ExpectedSha}; break;
+                        }
                         planned = Regex.IsMatch(repository, "^pmcro-marketplace/[a-zA-Z0-9_.-]{1,100}$") && registry.TryGetProperty(capability, out var binding) && binding.GetProperty("binding").GetString()=="GITHUB_REST";
                         if (!planned) throw new InvalidOperationException("Unbound capability or unauthorized repository scope");
                         suffix = capability switch {"/github:repository-discovery:get-repository" => "", "/github:actions:inspect" => "/actions/runs?per_page=20", "/github:actions:verify-run" when run > 0 => "/actions/runs/"+run, _ => throw new InvalidOperationException("Run ID required")};
                         output = new {method="GET", endpoint="https://api.github.com/repos/"+repository+suffix, authenticated=!string.IsNullOrEmpty(githubToken)}; break;
                     case "make":
                         if (!planned || error.Length>0) throw new InvalidOperationException("Plan blocked");
+                        if (write is not null) {
+                            observed = await write.Make(cancel);
+                            output = new {provider="GITHUB_REST",method="POST",httpStatus=write.HttpStatus,returned=observed}; break;
+                        }
                         var repo = await Get("",cancel); repoId=repo.GetProperty("id").GetInt64();
                         var raw = suffix=="" ? repo : await Get(suffix,cancel);
                         observed = suffix=="" ? JsonSerializer.SerializeToElement(new {id=repoId,fullName=raw.GetProperty("full_name").GetString(),defaultBranch=raw.GetProperty("default_branch").GetString()}) :
@@ -115,6 +131,11 @@ internal sealed class GithubAgent(string definitionHash, JsonElement registry, s
                         output = new {provider="GITHUB_REST",method="GET",httpStatus=200,returned=observed}; break;
                     case "check":
                         if (observed.ValueKind==JsonValueKind.Undefined) throw new InvalidOperationException("No Make evidence");
+                        if (write is not null) {
+                            var verification = await write.Verify(cancel);
+                            verified = true;
+                            output = new {verification, actualReceipt=Hash(observed.GetRawText())}; break;
+                        }
                         var independentlyRead=await Get("",cancel);
                         verified=independentlyRead.GetProperty("id").GetInt64()==repoId && independentlyRead.GetProperty("full_name").GetString()==repository;
                         if (capability.EndsWith("verify-run")) verified=verified && (await Get(suffix,cancel)).GetProperty("id").GetInt64()==run;
@@ -125,7 +146,7 @@ internal sealed class GithubAgent(string definitionHash, JsonElement registry, s
                 }
             } catch (Exception e) when (e is not OperationCanceledException) {
                 error = e is InvalidOperationException ? e.Message : e.GetType().Name;
-                status=phase=="check"?"REJECT":"BLOCKED"; output=new {error};
+                status=phase=="check"?"REJECT":"BLOCKED"; output=new {error,remoteMutation=write?.Mutation??"NOT_INVOKED",httpStatus=write?.HttpStatus};
             }
             string body=JsonSerializer.Serialize(new {agentId=Id,definitionSha256=definitionHash,runId,phase,invocation="@github-agent /pmcro:"+phase,capability,repository,previousFrameId=prior,status,output});
             var frame=JsonSerializer.SerializeToElement(new {frameId=Hash(body),body});
@@ -136,7 +157,7 @@ internal sealed class GithubAgent(string definitionHash, JsonElement registry, s
         await using var workflow=await InProcessExecution.RunAsync(builder.WithOutputFrom(steps[^1]).Build(),"START",cancellationToken:ct);
         var completed=workflow.NewEvents.OfType<ExecutorCompletedEvent>().Select(e=>e.ExecutorId).ToArray();
         if (!completed.SequenceEqual(phases)) throw new InvalidOperationException("Incomplete MAF workflow");
-        string result=JsonSerializer.Serialize(new {agentId=Id,definitionSha256=definitionHash,runId,status=verified?"PASS":"CORRECTIVE_SEED",capability,repository,executorCompleted=completed,frames,model="NOT_INVOKED",remoteMutation="NOT_INVOKED"});
+        string result=JsonSerializer.Serialize(new {agentId=Id,definitionSha256=definitionHash,runId,status=verified?"PASS":"CORRECTIVE_SEED",capability,repository,executorCompleted=completed,frames,model="NOT_INVOKED",remoteMutation=write?.Mutation??"NOT_INVOKED"});
         File.WriteAllText(Path.Combine(folder,"summary.json"),result); return result;
     }
     protected override async Task<AgentResponse> RunCoreAsync(IEnumerable<ChatMessage> messages,AgentSession? session=null,AgentRunOptions? options=null,CancellationToken ct=default) => new(){AgentId=Id,ResponseId=Guid.NewGuid().ToString(),Messages=[new ChatMessage(ChatRole.Assistant,await Execute(messages.Last(m=>m.Role==ChatRole.User).Text,ct))]};

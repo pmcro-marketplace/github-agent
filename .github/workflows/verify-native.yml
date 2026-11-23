@@ -27,6 +27,10 @@ jobs:
           for skill in plugins/github/skills/*; do
             python "$skill/scripts/validate.py"
           done
+      - name: Verify write contracts against isolated HTTP fixture
+        run: |
+          mkdir -p dist/ci-native-proof-fixture
+          dotnet run --project plugins/github/skills/github/scripts/write-tests/Write.Tests.csproj > dist/ci-native-proof-fixture/write-fixture.json
       - name: Verify actual native protocol invocation
         run: |
           python plugins/github/skills/github/scripts/prove_native.py dotnet plugins/github/skills/github/scripts/maf/bin/Debug/net10.0/Github.Agent.dll . dist/ci-native-proof
@@ -34,5 +38,7 @@ jobs:
         if: always()
         with:
           name: github-native-proof
-          path: dist/ci-native-proof
+          path: |
+            dist/ci-native-proof
+            dist/ci-native-proof-fixture
           if-no-files-found: warn

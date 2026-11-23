@@ -5,7 +5,7 @@
 <label>Operation</label><select id="cap"><option value="/github:repository-discovery:get-repository">Get repository</option><option value="/github:actions:inspect">Inspect Actions runs</option><option value="/github:actions:verify-run">Verify a run</option></select>
 <label>Repository</label><input id="repo" value="pmcro-marketplace/github-agent" required>
 <label>Run ID (only for Verify a run)</label><input id="runId" inputmode="numeric" pattern="[0-9]*">
-<button id="go">Run five-phase cycle</button></form><p>Remote dispatch and repository creation are not enabled. No GitHub credentials are needed in the browser; the runtime handles authorized provider access.</p></section>
+<button id="go">Run five-phase cycle</button></form><p>This studio exposes read operations. Native repository creation and dispatch require a separately approved exact request, submitted through the host-side invoke_write.py command. No GitHub credentials belong in the browser.</p></section>
 <section class="card"><h2 id="state">Awaiting invocation</h2><ol id="phases"></ol><pre id="output">Actual provider evidence appears here.</pre></section></div></main>
 <script>
 const phases=["orchestrate","plan","make","check","reflect"], $=s=>document.getElementById(s);
