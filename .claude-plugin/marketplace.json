@@ -1,0 +1,13 @@
+{
+  "name": "github-agent",
+  "owner": {
+    "name": "PMCR-O Marketplace"
+  },
+  "plugins": [
+    {
+      "name": "github",
+      "source": "./plugins/github",
+      "description": "Govern GitHub repository discovery and creation, branches, files, issues, pull requests, releases, GitHub Actions, synchronization, and local Actions rehearsal with evidence-backed provider selection."
+    }
+  ]
+}

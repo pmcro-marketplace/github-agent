@@ -1,0 +1,46 @@
+{
+  "github": {
+    "version": "0.3.0",
+    "skills": [
+      "actions",
+      "change-management",
+      "github",
+      "local-actions",
+      "repository-discovery",
+      "sync"
+    ],
+    "sha256": {
+      ".claude-plugin/plugin.json": "6ff4164188ca77df1b768f45267b3da31da1e1d874dfa68f7cc582c586f3b5f9",
+      ".codex-plugin/plugin.json": "48430e34f871316f978fb1bbafdfad29e281ba208f147d0f8481573a54491da8",
+      "INVOCATION.md": "dd215cd16757c3f293559dd230c4afeb1bc61edc28b3acd6b226797d464fbcff",
+      "plugin.json": "89f8249d8c2f86c996deeba278e40e0c68a1bdf177b8ede178c1bc8187b381f1",
+      "README.md": "622dbeb8cdb30fcebc574e2c1666d7e0b1b83928f789d68af0a3a05d7761a050",
+      "skills/actions/assets/request.json": "291cdcc8dd774918e9c4e5020ebb0c102cc6d9dcefb9f8361e7d42de0135a403",
+      "skills/actions/references/contract.md": "26dc38b8237808653770f43b0d1a97b4e68c3179877c4d0c5066945ce4bdbb28",
+      "skills/actions/scripts/validate.py": "31c2eab58509dcd0a8f83651414084064808c22ec3f1f0cb3ad992f64058a470",
+      "skills/actions/SKILL.md": "f06080e2625105894e451ee86b4baab9d834bd2050f36b41227eb50fc35558e6",
+      "skills/change-management/assets/request.json": "b22111dd37ba4135ba46e2734fcd1aa26cf1c26193b0cc6e5e1f4959fc23cda4",
+      "skills/change-management/references/contract.md": "56a3f37dc9d9381056c6c9c658ad70e7b78652cc00ef1f6707f2ad7106a65ae0",
+      "skills/change-management/references/create-repository.md": "a157f24cca8fda823d1b95de9e0f2df6a219601c26c86a0ea89470dfbbe5550d",
+      "skills/change-management/scripts/validate.py": "d845a881c6975d9fa44e30712bf2f6f8af195c61baa4c1df27eb3474679e4c94",
+      "skills/change-management/SKILL.md": "c42db54af8d4ac64cbe7c9c5060f520e811796729f86337094ab89ce240d69fe",
+      "skills/github/assets/request.json": "83584271db1efa985ef0da74c00d3fd4050a0a065a9d7092119cc223c2d87fd0",
+      "skills/github/references/contract.md": "b6a33455256618aae09b1cfff84cc62cdfc1434840bb3bb3311d5ff41b06b5d0",
+      "skills/github/references/provider-resolution.md": "665c945af47f90f06851c7ac83c97f47fc668fb4a1ea5dd0ee1408918a76846c",
+      "skills/github/scripts/validate.py": "ecccca545bb3a56d293a2cbf577bf6dcae99c1baff5deb88eda7b71b0c0dbd3f",
+      "skills/github/SKILL.md": "8d552b3d8af75ad0d655d3ffc108c5e843b61b464f62985dda085cc4096a26af",
+      "skills/local-actions/assets/request.json": "46d9b7b53732a25c4893b94fc058b740b62fbbcde818946e0a88f5e21774a04b",
+      "skills/local-actions/references/contract.md": "ff4de4d8bef1fdd015ca0d6f630e3bfcb0253fec79aa6a65f9d5448ec129caa6",
+      "skills/local-actions/scripts/validate.py": "7cd6e4839cc885c325d4e7d97c605eb876965563b9b370e23d5b24273c4e771f",
+      "skills/local-actions/SKILL.md": "f17b764b269d0a0507e90b125e2cfdda86d060a5aa6564fa92636e56a7386047",
+      "skills/repository-discovery/assets/request.json": "4b5468c7d4de73b9171160dc2d6ec185e4550fd2a25774d6540c0b4121e38611",
+      "skills/repository-discovery/references/contract.md": "f777b809c170b9ceaffca8014432ad832382e7043c73ebb0fb06c406affef4b8",
+      "skills/repository-discovery/scripts/validate.py": "f00332da0fac8e6c0fbbd696d4c05c02073ac0766268cccde1db9c9787d94ad1",
+      "skills/repository-discovery/SKILL.md": "51d4bc5c38ec1c86301712bfe0b2b6f7db07735c992e5966f64b9f53445578c3",
+      "skills/sync/assets/request.json": "2a5e3b8add675baafd4b1e998ae7989c6e38f5d17a295e94d79b933e940aee83",
+      "skills/sync/references/contract.md": "9a58bbdd2f1df3f71c8c0ee8af5c7cd0bffcc7a3321d47176198480189cce942",
+      "skills/sync/scripts/validate.py": "e7eab32ebc4f5235cc34029893f2eee10f6157912a63d1e38355658e9e687770",
+      "skills/sync/SKILL.md": "d60d9ef6b68c6407193182c19ff8b7c6fe72d7864cb471d244871c66d6ec068e"
+    }
+  }
+}

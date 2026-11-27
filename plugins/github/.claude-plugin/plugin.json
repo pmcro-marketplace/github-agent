@@ -1,0 +1,8 @@
+{
+  "name": "github",
+  "version": "0.3.0",
+  "description": "Govern GitHub repository discovery and creation, branches, files, issues, pull requests, releases, GitHub Actions, synchronization, and local Actions rehearsal with evidence-backed provider selection.",
+  "author": {
+    "name": "Planner Agent"
+  }
+}
